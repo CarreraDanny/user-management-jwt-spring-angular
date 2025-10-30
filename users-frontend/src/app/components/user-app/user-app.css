@@ -1,0 +1,22 @@
+.user-app-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f7f9fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.panel {
+  display: flex;
+  gap: 20px; /* espacio entre columnas */
+}
+
+.panel-left {
+  flex: 2; /* ocupa más espacio */
+}
+
+.panel-right {
+  flex: 1; /* ocupa menos espacio */
+}

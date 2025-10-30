@@ -1,0 +1,46 @@
+import { Component,EventEmitter,Output, Input} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { UserService } from '../../Services/user-service';
+import { User } from '../../Models/usuario';
+import Swal from 'sweetalert2';
+
+@Component({
+  selector: 'form-user',
+  imports: [FormsModule],
+  templateUrl: './form-user.html',
+  styleUrl: './form-user.css'
+})
+export class FormUser {
+  @Input() userId?: number;                  // 🔹 Para editar un usuario
+  @Output() userAdded = new EventEmitter<User>();
+  @Output() userUpdated = new EventEmitter<User>();
+
+
+  user: User = new User();
+
+  constructor(private userService: UserService) { }
+
+addUser(): void {
+  if (this.user.name && this.user.lastName && this.user.email && this.user.username && this.user.password) {
+    this.userService.addUser(this.user);       // agrega al servicio
+    this.userAdded.emit(this.user);            // emite al padre
+
+    // 🔹 SweetAlert2
+    Swal.fire({
+      icon: 'success',
+      title: 'Usuario agregado',
+      text: `El usuario ${this.user.name} ha sido creado correctamente.`,
+      timer: 1500,
+      showConfirmButton: false
+    });
+
+    this.user = new User(); // limpia formulario
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Campos incompletos',
+      text: 'Por favor completa todos los campos'
+    });
+  }
+}
+}

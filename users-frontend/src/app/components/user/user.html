@@ -1,0 +1,39 @@
+<table class="user-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Email</th>
+      <th>Usuario</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>
+        <input *ngIf="editingUser?.id === user.id" [(ngModel)]="editingUser!.name" />
+        <span *ngIf="editingUser?.id !== user.id">{{ user.name }}</span>
+      </td>
+      <td>
+        <input *ngIf="editingUser?.id === user.id" [(ngModel)]="editingUser!.lastName" />
+        <span *ngIf="editingUser?.id !== user.id">{{ user.lastName }}</span>
+      </td>
+      <td>
+        <input *ngIf="editingUser?.id === user.id" [(ngModel)]="editingUser!.email" />
+        <span *ngIf="editingUser?.id !== user.id">{{ user.email }}</span>
+      </td>
+      <td>
+        <input *ngIf="editingUser?.id === user.id" [(ngModel)]="editingUser!.username" />
+        <span *ngIf="editingUser?.id !== user.id">{{ user.username }}</span>
+      </td>
+      <td>
+        <!-- Botones -->
+        <button *ngIf="editingUser?.id !== user.id" type="button" class="btn btn-primary" (click)="editUser(user)">Editar</button>
+        <button *ngIf="editingUser?.id === user.id" type="button" class="btn btn-success" (click)="saveUser()">Guardar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteUser(user.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
